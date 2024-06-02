@@ -14,6 +14,7 @@ import FullScreenButton from "../FullScreen/FullScreenButton";
 import Toolbar from "./Toolbar";
 import Chart from "./Chart";
 import AVAILABLE_INDICATORS from "./indicators/availbleIndicators";
+import { nextData } from 'src/components/tradeX/15min_btc';
 
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
   T,
@@ -105,6 +106,7 @@ const TokenChart: React.FC<IProps> = (props) => {
     handleRemoveIndicator,
     handleAddIndicator,
     getIndicatorId,
+    jumpToEnd,
   } = useChart();
 
   const [selectedChartType, setSelectedChartType] = useState(
@@ -238,6 +240,16 @@ const TokenChart: React.FC<IProps> = (props) => {
     return <div />;
   }
 
+  const nextButtonHandler = () => {
+    // const newData = [
+    //   ...data,
+    //   nextData.shift()
+    // ]
+    // console.log('yay', nextData.shift())
+    handleMergeData([nextData.shift()])
+    jumpToEnd()
+  }
+
   return (
     <FullScreenWrapper>
       {({ handle, isIOS }) => (
@@ -267,6 +279,9 @@ const TokenChart: React.FC<IProps> = (props) => {
             {mergedConfig.toolbar?.fullscreenButton ? (
               <FullScreenButton handle={handle} isIOS={isIOS} />
             ) : null}
+          </div>
+          <div>
+            <button onClick={nextButtonHandler}>NEXT</button>
           </div>
           <div className="relative full-size">
             {(mergedConfig.generalTokenChart ? data.length > 0 : chartData) && (

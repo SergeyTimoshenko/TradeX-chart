@@ -314,6 +314,17 @@ const config3 = {
     startTS: rangeStartTS,
     limitFuture: 10,
   },
+  indicators: {
+    primary: {
+      name: "Trades",
+      type: "trades",
+      settings: {
+        "z-index": 5,
+        legend: false,
+      },
+      data: []
+    },
+  },
   theme: {
     candle: {
       Type: "candle_solid",

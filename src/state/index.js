@@ -476,7 +476,7 @@ export default class State {
     const mEvents = merge?.events || false    
     const inc = (!isArray(mData)) ? 0 : (this.range.inRange(mData[0][0])) ? 1 : 0
     const refresh = {}
-
+    console.log('all set', isArray(mData) && mData.length > 0)
     // Do we have price data?
     if (isArray(mData) && mData.length > 0) {
       i = mData.length - 1
@@ -535,14 +535,17 @@ export default class State {
         // Do we have primaryPane indicators?
         if (isArray(mPrimary) && mPrimary.length > 0) {
           for (let o of mPrimary) {
-            if (isArray(o?.data) && o?.data.length > 0) {
+            if (isObject(o?.data)) {
               for (let p of primaryPane) {
                 if (isObject(p) &&
                     p.name === o.name &&
                     p.type === o.type &&
                     isObjectEqual(p.settings, o.settings)) {
-                      p.data = this.merge(p.data, o.data)
-                      this.#core.getIndicator(p.id).drawOnUpdate = true
+                      p.data = {
+                        ...p.data,
+                        ...o.data,
+                      }
+                  console.log(this.#core.getIndicator(p.id))
                 }
               }
             }

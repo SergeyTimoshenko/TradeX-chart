@@ -33,7 +33,7 @@ export default class chartNewsEvents extends Overlay {
   #dialogue
 
   constructor(target, xAxis=false, yAxis=false, theme, parent, params) {
-
+    console.log('yay')
     super(target, xAxis, yAxis, theme, parent, params)
 
     this.#event = new NewsEvent(target, theme)

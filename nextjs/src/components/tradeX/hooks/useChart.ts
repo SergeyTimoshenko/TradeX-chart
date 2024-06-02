@@ -73,6 +73,12 @@ const useChart = () => {
     chartX.mergeData({ ohlcv: data });
   };
 
+  const jumpToEnd = () => {
+    if (!chartX) return;
+
+    chartX.jumpToEnd(false)
+  }
+
   return {
     chartX,
     setChartX,
@@ -88,6 +94,7 @@ const useChart = () => {
     // state
     handleCreateState,
     handleUseState,
+    jumpToEnd,
   };
 };
 
